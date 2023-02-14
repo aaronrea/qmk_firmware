@@ -13,6 +13,9 @@
 #define SPC_R A(G(KC_RGHT))
 #define LA_SYM MO(SYM)
 #define LA_NAV MO(NAV)
+#define COPY G(KC_C)
+#define PASTE G(KC_V)
+#define UNDO G(KC_Z)
 
 enum layers {
     DEF,
@@ -32,6 +35,16 @@ enum keycodes {
     SW_LANG, // Switch to next input language (ctl-spc)
 };
 
+const uint16_t PROGMEM combo_esc[] = {KC_Q, KC_W, COMBO_END};
+const uint16_t PROGMEM combo_tab[] = {KC_A, KC_S, COMBO_END};
+const uint16_t PROGMEM combo_undo[] = {KC_Z, KC_X, COMBO_END};
+combo_t key_combos[COMBO_COUNT] = {
+    COMBO(combo_esc, KC_ESC),
+    COMBO(combo_tab, KC_TAB), // keycodes with modifiers are possible too!
+    COMBO(combo_undo, UNDO),
+};
+
+
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     [DEF] = LAYOUT_moonlander(  
         _______, KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    _______, _______, KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    _______,
@@ -43,30 +56,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     ),
 
     [SYM] = LAYOUT_moonlander( 
-        _______, KC_ESC,  KC_LCBR, KC_LBRC, KC_LPRN, KC_TILD, _______, _______, KC_GRV,  KC_RPRN, KC_RBRC, KC_RCBR, KC_PIPE, _______,
+        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
         _______, KC_EQL,  KC_PLUS, KC_MINS, KC_UNDS, KC_BSLS, _______, _______, KC_SLSH, OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT, _______,
-        _______, KC_EXLM, KC_AT,   KC_HASH, KC_DLR,  KC_PERC, _______, _______, KC_CIRC, KC_AMPR, KC_ASTR, KC_QUOT, KC_DQUO, _______,
+        _______, KC_ESC,  KC_LCBR, KC_LBRC, KC_LPRN, KC_TILD, _______, _______, KC_GRV,  KC_RPRN, KC_RBRC, KC_RCBR, KC_PIPE, _______,
         _______, _______, _______, _______, _______, KC_LSFT,                   KC_SPC,  _______, _______, _______, _______, _______, 
         _______, _______, _______, _______, _______,          _______, _______,          _______, _______, _______, _______, _______,  
                                             _______, _______, _______, _______, _______, _______
     ),
 
     [NAV] = LAYOUT_moonlander(
-        _______, KC_TAB,  SW_WIN,  TABL,    TABR,    KC_VOLU, _______, _______, RESET,   HOME,    KC_UP,   END,     KC_DEL,  _______,
-        _______, OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_VOLD, _______, _______, KC_CAPS, KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, _______,
-        _______, SPCL,    SPC_R,   BACK,    FWD,     KC_MPLY, _______, _______, RGB_MOD, KC_PGDN, KC_PGUP, SW_LANG, KC_ENT,  _______,
+        _______, KC_TAB,  SW_WIN,  TABL,    TABR,    KC_VOLU, _______, _______, KC_PGDN,   HOME,    KC_UP,   END,     KC_DEL,  _______,
+        _______, OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_VOLD, _______, _______, KC_PGUP,   KC_LEFT, KC_DOWN, KC_RGHT, KC_BSPC, _______,
+        _______, SPCL,    SPC_R,   COPY,    PASTE,   KC_MPLY, _______, _______, BACK,      FWD,    _______, SW_LANG, KC_ENT,  _______,
         _______, _______, _______, _______, _______, KC_LSFT,                   KC_SPC,  _______, _______, _______, _______, _______, 
         _______, _______, _______, _______, _______,          _______, _______,          _______, _______, _______, _______, _______,  
                                             _______, _______, _______, _______, _______, _______
     ),
 
     [NUM] = LAYOUT_moonlander(  
-        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
+        _______, KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    _______, _______, RESET,    KC_7,    KC_8,    KC_9,    KC_0,    _______,
         _______, OS_SHFT, OS_CTRL, OS_ALT,  OS_CMD,  KC_F11,  _______, _______, KC_F10,  OS_CMD,  OS_ALT,  OS_CTRL, OS_SHFT, _______,
         _______, KC_F7,   KC_F5,   KC_F3,   KC_F1,   KC_F9,   _______, _______, KC_F8,   KC_F12,  KC_F2,   KC_F4,   KC_F6,   _______,
         _______, _______, _______, _______, _______, KC_LSFT,                   KC_SPC,  _______, _______, _______, _______, _______, 
         _______, _______, _______, _______, _______,          _______, _______,          _______, _______, _______, _______, _______,  
                                             _______, _______, _______, _______, _______, _______
+
     ),
 };
 
